@@ -10,5 +10,6 @@ check = np.zeros((8, 8), dtype=int)
 check[::2, 1::2] = 1  
 check[1::2,::2] = 1 
 print(check)
-np.save('check.txt', check)
+np.savetxt('check.txt', check)
+
 
