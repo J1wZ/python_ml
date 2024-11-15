@@ -5,11 +5,12 @@
 # Задачу решить через срезы массива NumPy
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 check = np.zeros((8, 8), dtype=int)
 check[::2, 1::2] = 1  
 check[1::2,::2] = 1 
 print(check)
-np.savetxt('check.txt', check)
+plt.imsave('check.png', check, cmap='gray')
 
 
