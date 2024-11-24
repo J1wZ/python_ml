@@ -5,37 +5,50 @@ class Complex:
     #флаг=False она переводит данные из полярного вида в алгебраический
     #принимаются радианы, а не градусы
     def __init__(self, real, imag, flag):
-        if (flag):
-            self._real = real
-            self._imag = imag
+        if isinstance(flag,bool) and (type(real) in [int, float]) and (type(imag) in [int, float]):
+            if (flag):
+                self._real = real
+                self._imag = imag
+            else:
+                self._real = real * math.cos(imag)
+                self._imag = real * math.sin(imag)
         else:
-            self._real = real * math.cos(imag)
-            self._imag = real * math.sin(imag)
+            raise ValueError("Конструктор Complex(real, imag, flag) принимает только численные значения для real & imag, булевое для flag")
 
     #Проверяется тип другого обьекта для выбора формулы 
     def __add__(self, other):
         if isinstance(other,Complex):
-            return Complex(self._real + other._real, self._imag + other._imag, True)
+            return Complex(self.real + other.real, self.imag + other.imag, True)
+        elif type(other) in [int, float]:
+            return Complex(self.real + other, self.imag, True)
         else:
-            return Complex(self._real + other, self._imag, True)
+            raise ValueError(f"Комплексные числа не складываются с {str(type(other))}")
 
     def __sub__(self, other):
         if isinstance(other,Complex):
-            return Complex(self._real - other._real, self._imag - other._imag, True)
+            return Complex(self.real - other.real, self.imag - other.imag, True)
+        elif type(other) in [int, float]:
+            return Complex(self.real - other, self.imag, True)
         else:
-            return Complex(self._real - other, self._imag, True)
+            raise ValueError(f"Не существует разности комплексного числа и {str(type(other))}")
 
     def __mul__(self, other):
         if isinstance(other,Complex):
-            return Complex(self._real * other._real - self._imag * other._imag,self._imag * other._real + self._real *other._imag , True)
+            return Complex(self.real * other.real - self.imag * other.imag,self.imag * other.real + self.real *other.imag , True)
+        elif type(other) in [int, float]:
+            return Complex(self.real * other, self.imag * other, True)
         else:
-            return Complex(self._real * other, self._imag * other, True) 
+            raise ValueError(f"Комплексные числа не перемножаются с {str(type(other))}")
+
 
     def __truediv__(self, other):
         if isinstance(other,Complex):
-            return Complex((self._real * other._real + self._imag * other._imag )/( other._real**2 + other._imag**2), (self._imag * other._real - self._real *other._imag) / ( other._real**2 + other._imag**2), True)
+            return Complex((self.real * other.real + self.imag * other.imag )/( other.real**2 + other.imag**2), (self.imag * other.real - self.real *other.imag) / ( other.real**2 + other.imag**2), True)
+        elif type(other) in [int, float]:
+            return Complex(self.real/other,self.imag/other,True)
         else:
-            return Complex(self._real/other,self._imag/other,True)
+            raise ValueError(f"Комплексные числа не делятся на {str(type(other))}")
+
 
     def __str__(self):
         if self.imag < 0:
@@ -44,13 +57,15 @@ class Complex:
             return f"{round(self.real,3)}+{round(self.imag,3)}i"
     
     def __abs__(self):
-        return math.sqrt(self._real**2 + self._imag**2)
+        return math.sqrt(self.real**2 + self.imag**2)
 
     def polar(self):
         return (abs(self), math.atan2(self.imag,self.real))
 
     def rect(modulus, phase):
-        return Complex(modulus * math.cos(phase),modulus * math.sin(phase), True)
+        if type(modulus) in [int, float] and type(phase) in [int, float]:
+            return Complex(modulus * math.cos(phase),modulus * math.sin(phase), True)
+        raise ValueError(f"Комплексные числа не создаются из пары типа ({str(type(modulus))},{str(type(phase))})")
 
     #Вазращает строку - данный комплексный обьект в полярной записи
     def printPolar(self):
@@ -72,23 +87,32 @@ class Complex:
     
 
 def main():
-    a = Complex(1,2, True)
-    print(a)
-    b = Complex(3,5, False)
-    print(b)
-    print(a+b)
-    print(a-b)
-    print(a*b)
-    print(a/b)
-    print(abs(a))
-    c,d = a.polar()
-    print(Complex.rect(c,d))
-    print(b.printPolar())
-    print(a + 2)
-    print(a-2)
-    print(a*2)
-    print(a/2)
-    print(b.printPolar())
+    try:
+        a = Complex(1,2, True)
+        print(a)
+        b = Complex(3,5, False)
+        print(b)
+        print(a+b)
+        print(a-b)
+        print(a*b)
+        print(a/b)
+        print(abs(a))
+        c,d = a.polar()
+        print(Complex.rect(c,d))
+        print(b.printPolar())
+        print(a + 2)
+        print(a-2)
+        print(a*2)
+        print(a/2)
+        print(b.printPolar())
+        a = Complex("11",88,True)
+        print(a+"len")
+        print(a-True)
+        print(a*"1")
+        print(a/"1")
+        Complex.rect("qq", True)
+    except ValueError as er:
+        print(er)
 
 if __name__ == "__main__":
     main()
