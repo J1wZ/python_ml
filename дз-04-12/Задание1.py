@@ -15,5 +15,5 @@ Check_len = lambda string: len(string) >= 3
 
 Towns = input('Введите список названий городов, через пробел').split() # Париж Рим ен
 
-print(list(filter(Check_len, Towns)))
+print([town for town in Towns if Check_len(town)])
 

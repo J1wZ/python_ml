@@ -8,21 +8,28 @@
 
 from functools import partial
 
-def _sort_users_by_age(users : dict, sort_order : str = 'ascending'):
-    if sort_order == 'ascending':
-        return dict(sorted(users.items(), key = lambda kv: kv[1]))
-    elif sort_order == 'descending':
-        return dict(sorted(users.items(), key = lambda kv: kv[1],reverse=True))
+'''
+Функция _sort_users_by_age принимает список пользователей и sort_order - порядок сортировки
+sort_order == False - сортирует по возрастанию, True - по убыванию
+'''
+def _sort_users_by_age(users, sort_order : bool = False):
+    if isinstance(sort_order, bool):
+        return sorted(users, key = lambda user: user['age'],reverse=sort_order)
     else:
-        raise ValueError(f'Функция не принимает sort_order = {sort_order}')
+        raise ValueError(f'Функция не принимает sort_order типа {type(sort_order)}')
     
 #Функция для сортировки по возрастанию возраста
-_sort_users_by_age_ascending = partial(_sort_users_by_age, sort_order = 'ascending')
+_sort_users_by_age_ascending = partial(_sort_users_by_age)
 
 #Функция для сортировки по убыванию возраста
-_sort_users_by_age_descending = partial(_sort_users_by_age, sort_order = 'descending')
+_sort_users_by_age_descending = partial(_sort_users_by_age, sort_order = True)
 
-users = {'Максим': 12, 'Маша': 5, 'Андрей': 54, 'Анастасия': 25}
+users = [
+    {'name':'Максим','age': 12},
+    { 'name':'Маша','age': 5},
+    {'name':'Андрей','age': 54}, 
+    {'name':'Анастасия','age': 25}
+      ]
 
 try:
     users_ascending = _sort_users_by_age_ascending(users)

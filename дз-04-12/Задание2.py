@@ -11,11 +11,14 @@
 # 3.Используйте вызов функций get_list и sort_func, 
 # чтобы вывести результат на экран.
 
+def sort_func(func : callable):
+    def sorted_f(data = None):
+        return sorted(func(data))
+    return sorted_f
+
+@sort_func
 def get_list(num_str : str) -> list:
     return [float(num) for num in num_str.split()]
-
-def sort_func(func : callable, data = None):
-    return sorted(func(data))
 
 #34.6 85950 0 -45 4.8
 num_list = sort_func(get_list,input('Введите строку из целых чисел, разделенных пробелами:'))

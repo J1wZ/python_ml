@@ -11,6 +11,7 @@ def get_permutations(s : str, n : int):
     return sorted(list(permutations(s,n)))
 
 string = 'Hello_World!'
+#кол-во перестановок
 num = 3
 result = get_permutations(string, num)
 for el in result:

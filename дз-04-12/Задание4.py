@@ -14,7 +14,8 @@ def get_combinations(s : str, k : int):
     return result
 
 string = 'Hello_World!'
-num = 3
-result = get_combinations(string, num)
+#максимальное кол-во комбинаций 
+max_num = 3
+result = get_combinations(string, max_num)
 for el in result:
     print(el)
