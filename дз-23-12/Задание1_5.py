@@ -18,9 +18,10 @@ if __name__ == '__main__':
         print(f"Успешно подключено.")
         with engine.connect() as connection:
             query="""
-            SELECT orders.customer_id, COUNT(orders.order_id) as count
-            FROM orders
-            GROUP BY orders.customer_id;"""
+            SELECT CONCAT_WS(' ',customers.first_name, customers.last_name) as customer, COUNT(orders.order_id) as count
+            FROM customers
+            JOIN orders ON orders.customer_id = customers.customer_id
+            GROUP BY customers.customer_id;"""
             my_data=list(connection.execute(text(query)))
 
         for el in my_data:
