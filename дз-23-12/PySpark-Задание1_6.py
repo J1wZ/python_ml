@@ -17,10 +17,6 @@ df_res = df_res.groupBy("customer").count()
 
 df_res.show()
 #spark.sql
-df_customers = spark.read.csv("CVS\\customers.csv", inferSchema=True, header=True, sep=",")
-df_orders = spark.read.csv("CVS\\orders.csv", inferSchema=True, header=True, sep=",")
-
-
 df_customers.createOrReplaceTempView("customers")
 df_orders.createOrReplaceTempView("orders")
 
