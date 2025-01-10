@@ -8,7 +8,7 @@ df_customers = spark.read.csv("CVS\\customers.csv", inferSchema=True, header=Tru
 df_orders = spark.read.csv("CVS\\orders.csv", inferSchema=True, header=True, sep=",")
 
 df_res = df_customers.join(df_orders, 
-                           df_orders["customer_id"] == df_customers["customer_id"], "left")
+                           df_orders["customer_id"] == df_customers["customer_id"], "inner")
 
 df_res = df_res.select(
     concat_ws(" ",df_customers["first_name"], 
@@ -27,6 +27,6 @@ df_orders.createOrReplaceTempView("orders")
 spark.sql("""
             SELECT CONCAT_WS(' ',customers.first_name, customers.last_name) as customer, COUNT(orders.order_id) as count
             FROM customers
-            LEFT JOIN orders ON orders.customer_id = customers.customer_id
+            INNER JOIN orders ON orders.customer_id = customers.customer_id
             GROUP BY customer;
           """).show()

@@ -20,9 +20,8 @@ if __name__ == '__main__':
             query="""
             SELECT CONCAT_WS(' ',customers.first_name, customers.last_name) as customer, COUNT(orders.order_id) as order_count
             FROM customers
-            JOIN orders ON orders.customer_id = customers.customer_id
-            GROUP BY customer
-            HAVING order_count > 0;"""
+            INNER JOIN orders ON orders.customer_id = customers.customer_id
+            GROUP BY customer;"""
             my_data=list(connection.execute(text(query)))
 
         for el in my_data:
