@@ -11,7 +11,7 @@
 
 class AttrLoggingMeta(type):
     """
-    В Метаклассе PythonAttrLoggingMeta есть методы по логированию доступа log_access(name,value),
+    В Метаклассе Python AttrLoggingMeta есть методы по логированию доступа log_access(name,value),
     чтению log_read(name,value,instance) и записи log_write(name,value,instance)
     атрибута класса.
     """
