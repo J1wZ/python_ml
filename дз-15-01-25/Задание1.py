@@ -1,5 +1,5 @@
 # Задание 1
-# Напишите метакласс PythonAttrLoggingMeta, 
+# Напишите метакласс Python AttrLoggingMeta, 
 # который регистрирует каждый доступ к атрибуту или его изменение. 
 # В метаклассе должен быть переопределен метод __new__. 
 # В AttrLoggingMeta добавить методы по логированию доступа 
@@ -9,7 +9,7 @@
 # Определите класс LoggedClass, используя AttrLoggingMeta в 
 # качестве его метакласса. Проверьте правильность реализации методов.
 
-class PythonAttrLoggingMeta(type):
+class AttrLoggingMeta(type):
     """
     В Метаклассе PythonAttrLoggingMeta есть методы по логированию доступа log_access(name,value),
     чтению log_read(name,value,instance) и записи log_write(name,value,instance)
@@ -40,12 +40,12 @@ class PythonAttrLoggingMeta(type):
         """
 
         if callable(value):
-            return PythonAttrLoggingMeta.log_method(name, value)
+            return AttrLoggingMeta.log_method(name, value)
         else:
             #Определяется геттер и сеттер для атрибута
             return property(
-                fget=lambda self: PythonAttrLoggingMeta.log_read(name, value, self),
-                fset=lambda self, new_value: PythonAttrLoggingMeta.log_write(name, new_value, self)
+                fget=lambda self: AttrLoggingMeta.log_read(name, value, self),
+                fset=lambda self, new_value: AttrLoggingMeta.log_write(name, new_value, self)
             )
     
     @staticmethod
@@ -66,9 +66,9 @@ class PythonAttrLoggingMeta(type):
         print(f"Writing attribute {name} with value {value}")
         instance.__dict__[name] = value
 
-class LoggedClass(metaclass=PythonAttrLoggingMeta):
+class LoggedClass(metaclass=AttrLoggingMeta):
     """
-    Класс LoggedClass основан на метаклассе PythonAttrLoggingMeta. \n
+    Класс LoggedClass основан на метаклассе Python AttrLoggingMeta. \n
     Он добавляет атрибут custom_method и метод other_custom_method.
     """
 
