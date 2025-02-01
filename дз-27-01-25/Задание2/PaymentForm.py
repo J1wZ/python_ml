@@ -7,4 +7,3 @@ class PaymentForm():
     
     def pay(self, amount:float):
         return self.__creditCard.charge(amount)
-

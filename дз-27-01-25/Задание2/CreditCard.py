@@ -65,6 +65,3 @@ class CreditCard:
         if isinstance(money, float) and money >= 0.0:
             return True
         return False
-
-    
-        

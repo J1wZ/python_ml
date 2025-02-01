@@ -23,6 +23,3 @@ except Exception as e:
 #Успешный платеж
 result=payment_form.pay(50.00)
 print(result)
-
-
-
