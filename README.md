@@ -29,3 +29,25 @@ pyspark==3.5.4
 SQLAlchemy==2.0.36
 
 PyMySQL==1.1.1
+
+arrow==1.3.0
+
+coverage==7.6.10
+
+factory_boy==3.3.1
+
+Faker==35.0.0
+
+freezegun==1.5.1
+
+polyfactory==2.18.1
+
+py4j==0.10.9.7
+
+pytest==8.3.4
+
+pytest-cov==6.0.0
+
+pytest-mock==3.14.0
+
+pytest-xdist==3.6.1
