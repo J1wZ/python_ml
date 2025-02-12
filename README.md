@@ -51,3 +51,4 @@ pytest-cov==6.0.0
 pytest-mock==3.14.0
 
 pytest-xdist==3.6.1
+
